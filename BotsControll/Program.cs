@@ -1,5 +1,4 @@
-
-namespace BotsControll
+namespace BotsControll.Api
 {
     public class Program
     {
@@ -25,7 +24,6 @@ namespace BotsControll
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
         }
