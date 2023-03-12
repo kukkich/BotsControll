@@ -1,43 +1,42 @@
-namespace BotsControll.Api
+namespace BotsControll.Api;
+
+public class Program
 {
-    public class Program
+
+    public static void ConfigureServices(IServiceCollection services)
     {
+        services.AddControllers();
 
-        public static void ConfigureServices(IServiceCollection services)
+        services.AddSignalR();
+
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+    }
+
+    public static void Configure(WebApplication app)
+    {
+        if (app.Environment.IsDevelopment())
         {
-            services.AddControllers();
-
-            services.AddSignalR();
-
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
 
-        public static void Configure(WebApplication app)
-        {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+        app.UseHttpsRedirection();
 
-            app.UseHttpsRedirection();
+        app.UseAuthorization();
 
-            app.UseAuthorization();
+        app.MapControllers();
+    }
 
-            app.MapControllers();
-        }
-
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
             
-            ConfigureServices(builder.Services);
+        ConfigureServices(builder.Services);
 
-            var app = builder.Build();
-            Configure(app);
+        var app = builder.Build();
+        Configure(app);
 
-            app.Run();
-        }
+        app.Run();
     }
 }
