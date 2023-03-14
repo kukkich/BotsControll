@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using BotsControll.Api.Services.Users;
 using BotsControll.Api.Web.Connections;
 using BotsControll.Core.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -13,55 +13,37 @@ namespace BotsControll.Api.Hubs;
 [Authorize]
 public class UserHub : Hub
 {
-    private static readonly ConcurrentDictionary<int, ConnectedUser> Users = new ();
+    private readonly UserConnectionService _userConnectionService;
 
-    public async Task Join()
+    public UserHub(UserConnectionService userConnectionService)
     {
-        await Groups.AddToGroupAsync(Context.ConnectionId, "My group");
+        _userConnectionService = userConnectionService;
     }
 
     public override Task OnConnectedAsync()
     {
-        var userIdentity = (UserIdentity)Context.User!;
-        var connectionId = Context.ConnectionId;
+        GetUserAndConnectionId(out var userIdentity, out var connectionId);
 
-        var existedUser = Users.GetOrAdd(userIdentity.Id, _ => new ConnectedUser
-        {
-            User = userIdentity,
-        });
-
-        lock (existedUser.ConnectionIds)
-        {
-            existedUser.ConnectionIds.Add(connectionId);
-        }
+        _userConnectionService.Connect(userIdentity, connectionId);
 
         return base.OnConnectedAsync();
     }
 
+    
+
     public override Task OnDisconnectedAsync(Exception? exception)
     {
-        var userIdentity = (UserIdentity)Context.User!;
-        var connectionId = Context.ConnectionId;
+        GetUserAndConnectionId(out var userIdentity, out var connectionId);
 
-        Users.TryGetValue(userIdentity.Id, out var user);
-
-        if (user is null) return base.OnDisconnectedAsync(exception);
-        
-        lock (user.ConnectionIds)
-        {
-            user.ConnectionIds.RemoveWhere(conId => conId == connectionId);
-
-            if (user.ConnectionIds.Any())
-                return base.OnDisconnectedAsync(exception);
-
-            Users.TryRemove(userIdentity.Id, out _);
-        }
+        _userConnectionService.Disconnect(userIdentity, connectionId, exception);
 
         return base.OnDisconnectedAsync(exception);
     }
 
-    public async Task Send(string message)
+    private void GetUserAndConnectionId(out UserIdentity userIdentity, out string connectionId)
     {
-        await Clients.Groups("My group").SendAsync("123");
+        userIdentity = (UserIdentity)Context.User!;
+        connectionId = Context.ConnectionId;
     }
+
 }
