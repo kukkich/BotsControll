@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +13,12 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Web\Receiving\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BotsControll.Core\BotsControll.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,11 @@
+using BotsControll.Api.Middlewares;
+using BotsControll.Api.Services.Bots;
+using BotsControll.Api.Web.Connections;
+using BotsControll.Api.Web.Receiving;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 namespace BotsControll.Api;
 
 public class Program
@@ -11,6 +19,10 @@ public class Program
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        services.AddSingleton<IBotConnectionRepository, BotConnectionRepository>();
+        services.AddTransient<IBotConnectionService, BotConnectionService>();
+        services.AddTransient<IWebSocketReceiverFactory, BotWebSocketReceiverFactory>();
     }
 
     public static void Configure(WebApplication app)
@@ -22,10 +34,13 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
+        
+        app.UseWebSockets();
 
         app.MapControllers();
+        app.Map("/ws/bot", builder => builder.UseMiddleware<WebSocketMiddleware>());
+
     }
 
     public static void Main(string[] args)
