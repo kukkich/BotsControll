@@ -1,4 +1,5 @@
 ﻿using System.Net.WebSockets;
+using BotsControll.Api.Middlewares;
 using BotsControll.Api.Services.Bots;
 using BotsControll.Api.Web.Connections;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,8 @@ public class BotWebSocketReceiverFactory : IWebSocketReceiverFactory
 
     public IWebSocketReceiver Crete(WebSocket webSocket, HttpContext context)
     {
-        var botConnection = new BotConnection(webSocket);
+        var botName = context.User.Identity!.Name;
+        var botConnection = new BotConnection(webSocket, new TestBotIdentity(botName));
 
         return new BotWebSocketReceiver(botConnection, _botConnectionService, _botLogger);
     }

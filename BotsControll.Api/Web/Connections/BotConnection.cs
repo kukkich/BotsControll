@@ -15,10 +15,10 @@ public class BotConnection
     // now nullable just gag
     public IBotIdentity? Bot { get; }
 
-    public BotConnection(WebSocket connection)
+    public BotConnection(WebSocket connection, IBotIdentity bot=null)
     {
         Connection = connection;
-        Bot = null;
+        Bot = bot;
     }
 
     public async Task SendAsync(string message)

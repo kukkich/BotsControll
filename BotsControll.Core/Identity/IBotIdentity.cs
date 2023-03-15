@@ -2,5 +2,5 @@
 
 public interface IBotIdentity
 {
-
+    public string Name { get; }
 }

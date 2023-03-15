@@ -52,7 +52,7 @@ public class Program
         app.MapControllers();
         app.Map("/ws/bot", builder =>
         {
-            builder.UseMiddleware<>();
+            builder.UseMiddleware<BotAuthenticationMiddleware>();
             builder.UseMiddleware<WebSocketMiddleware>();
         });
         app.MapHub<UserHub>("/ws/connect");

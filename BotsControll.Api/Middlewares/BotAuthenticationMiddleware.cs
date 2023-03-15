@@ -1,4 +1,5 @@
-﻿using BotsControll.Api.Web.Receiving;
+﻿using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
@@ -15,7 +16,23 @@ public class BotAuthenticationMiddleware
 
     public async Task Invoke(HttpContext context)
     {
+        var botName = context.Request.Query["Name"].FirstOrDefault();
+
+        if (botName is null)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            return;
+        }
+
+        context.User = new ClaimsPrincipal(
+            new ClaimsIdentity(
+                new []
+                {
+                    new Claim(ClaimTypes.Name, botName)
+                }
+            )
+        );
         
-        
+        await _next(context);
     }
 }
