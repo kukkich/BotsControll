@@ -49,4 +49,11 @@ public class BotConnectionService : IBotConnectionService
             .Select(connection => connection.SendAsync(message))
         );
     }
+
+    public async Task SendTo(string connectionId, string message)
+    {
+        var botConnection = _connectionRepository.GetById(connectionId);
+
+        await botConnection.SendAsync(message);
+    }
 }

@@ -10,4 +10,5 @@ public interface IBotConnectionService
     public Task DisconnectAsync(string id);
     public Task SendToAll(string message);
     public Task SendAllExcept(string message, IEnumerable<string> exceptedIds);
+    public Task SendTo(string connectionId, string message);
 }

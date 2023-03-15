@@ -12,7 +12,7 @@ public class BotConnectionRepository : IBotConnectionRepository
     public IEnumerable<KeyValuePair<string, BotConnection>> All => _sockets.AsEnumerable();
     public IEnumerable<BotConnection> AllConnection => _sockets.AsEnumerable().Select(x => x.Value);
 
-    public BotConnection GetSocketById(string id)
+    public BotConnection GetById(string id)
     {
         return _sockets.FirstOrDefault(p => p.Key == id).Value;
     }

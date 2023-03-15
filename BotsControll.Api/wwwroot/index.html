@@ -6,11 +6,10 @@
 </head>
 <body>
 <div id="inputForm">
-    <input type="text" id="id" />
-    <input type="text" id="name" />
-    <input type="text" id="connectionId" />
+    <input placeholder="Id подключения робота" type="text" id="connectionId"/>
+    <input placeholder="Сообщение" type="text" id="message"/>
 
-    <input type="button" id="sendBtn" value="Отсоединиться" disabled="disabled" />
+    <input type="button" id="sendBtn" value="Отправить сообщение" disabled="disabled"/>
 </div>
 <div id="chatroom"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
@@ -20,11 +19,10 @@
             .build();
 
         document.getElementById("sendBtn").addEventListener("click", function () {
-            let name = document.getElementById("name").value;
-            let id = document.getElementById("id").value;
+            let message = document.getElementById("message").value;
             let connectionId = document.getElementById("connectionId").value
 
-            hubConnection.invoke("Remove", id, name, connectionId)
+            hubConnection.invoke("SendToBot", connectionId, message)
                 .catch(function (err) {
                     return console.error(err.toString());
                 });

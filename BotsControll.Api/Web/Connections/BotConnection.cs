@@ -15,7 +15,7 @@ public class BotConnection
     // now nullable just gag
     public IBotIdentity? Bot { get; }
 
-    public BotConnection(WebSocket connection, IBotIdentity bot=null)
+    public BotConnection(WebSocket connection, IBotIdentity? bot=null)
     {
         Connection = connection;
         Bot = bot;
@@ -23,11 +23,13 @@ public class BotConnection
 
     public async Task SendAsync(string message)
     {
+        var bytes = Encoding.UTF8.GetBytes(message);
+
         await Connection.SendAsync(
             buffer: new ArraySegment<byte>(
-                array: Encoding.ASCII.GetBytes(message),
+                array: bytes,
                 offset: 0,
-                count: message.Length
+                count: bytes.Length
             ),
             messageType: WebSocketMessageType.Text,
             endOfMessage: true,

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BotsControll.Api.Services.Bots;
 using BotsControll.Api.Services.Users;
 using BotsControll.Core.Identity;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace BotsControll.Api.Hubs;
@@ -11,10 +11,12 @@ namespace BotsControll.Api.Hubs;
 public class UserHub : Hub
 {
     private readonly UserConnectionService _userConnectionService;
+    private readonly IBotConnectionService _botConnectionService;
 
-    public UserHub(UserConnectionService userConnectionService)
+    public UserHub(UserConnectionService userConnectionService, IBotConnectionService botConnectionService)
     {
         _userConnectionService = userConnectionService;
+        _botConnectionService = botConnectionService;
     }
 
     public override Task OnConnectedAsync()
@@ -43,4 +45,8 @@ public class UserHub : Hub
         connectionId = Context.ConnectionId;
     }
 
+    public async Task SendToBot(string connectionId, string message)
+    {
+        await _botConnectionService.SendTo(connectionId, message);
+    }
 }
