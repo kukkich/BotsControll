@@ -9,7 +9,7 @@ public class UserIdentity
     public int Id { get; }
     public string Name { get; }
     
-    private UserIdentity(int id, string name)
+    public UserIdentity(int id, string name)
     {
         Id = id;
         Name = name;

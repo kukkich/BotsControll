@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BotsControll.Api.Web.Connections;
 
@@ -20,5 +22,10 @@ public class UserConnectionRepository
     public bool TryRemoveById(int id, out ConnectedUser? user)
     {
         return _users.TryRemove(id, out user);
+    }
+
+    public IEnumerable<KeyValuePair<int, ConnectedUser>> GetAll()
+    {
+        return _users.AsEnumerable();
     }
 }

@@ -12,8 +12,6 @@ public class BotConnectionRepository : IBotConnectionRepository
     public IEnumerable<KeyValuePair<string, BotConnection>> All => _sockets.AsEnumerable();
     public IEnumerable<BotConnection> AllConnection => _sockets.AsEnumerable().Select(x => x.Value);
 
-    public BotConnectionRepository() { }
-
     public BotConnection GetSocketById(string id)
     {
         return _sockets.FirstOrDefault(p => p.Key == id).Value;

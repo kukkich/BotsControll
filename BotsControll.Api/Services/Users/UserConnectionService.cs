@@ -27,7 +27,7 @@ public class UserConnectionService
         }
     }
 
-    public void Disconnect(UserIdentity user, string connectionId, Exception? exception)
+    public void Disconnect(UserIdentity user, string connectionId, Exception? exception=null)
     {
         _userConnections.TryGetByUserId(user.Id, out var connectedUser);
 

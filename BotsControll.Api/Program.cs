@@ -1,5 +1,7 @@
+using BotsControll.Api.Hubs;
 using BotsControll.Api.Middlewares;
 using BotsControll.Api.Services.Bots;
+using BotsControll.Api.Services.Users;
 using BotsControll.Api.Web.Connections;
 using BotsControll.Api.Web.Receiving;
 using Microsoft.AspNetCore.Builder;
@@ -15,7 +17,10 @@ public class Program
     {
         services.AddControllers();
 
-        services.AddSignalR();
+        services.AddSignalR(options =>
+        {
+            options.EnableDetailedErrors = true;
+        });
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
@@ -23,6 +28,9 @@ public class Program
         services.AddSingleton<IBotConnectionRepository, BotConnectionRepository>();
         services.AddTransient<IBotConnectionService, BotConnectionService>();
         services.AddTransient<IWebSocketReceiverFactory, BotWebSocketReceiverFactory>();
+
+        services.AddSingleton<UserConnectionRepository>();
+        services.AddTransient<UserConnectionService>();
     }
 
     public static void Configure(WebApplication app)
@@ -35,12 +43,15 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseAuthorization();
+
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
         
         app.UseWebSockets();
 
         app.MapControllers();
         app.Map("/ws/bot", builder => builder.UseMiddleware<WebSocketMiddleware>());
-
+        app.MapHub<UserHub>("/ws/connect");
     }
 
     public static void Main(string[] args)

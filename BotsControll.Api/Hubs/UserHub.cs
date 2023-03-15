@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
 using System.Threading.Tasks;
 using BotsControll.Api.Services.Users;
-using BotsControll.Api.Web.Connections;
 using BotsControll.Core.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace BotsControll.Api.Hubs;
 
-[Authorize]
+//[Authorize]
 public class UserHub : Hub
 {
     private readonly UserConnectionService _userConnectionService;
@@ -29,8 +26,6 @@ public class UserHub : Hub
         return base.OnConnectedAsync();
     }
 
-    
-
     public override Task OnDisconnectedAsync(Exception? exception)
     {
         GetUserAndConnectionId(out var userIdentity, out var connectionId);
@@ -39,10 +34,12 @@ public class UserHub : Hub
 
         return base.OnDisconnectedAsync(exception);
     }
-
+    
     private void GetUserAndConnectionId(out UserIdentity userIdentity, out string connectionId)
     {
-        userIdentity = (UserIdentity)Context.User!;
+        var id = Random.Shared.Next(255);
+        userIdentity = new UserIdentity(id, $"user with id {id} name");
+            //(UserIdentity)Context.User!;
         connectionId = Context.ConnectionId;
     }
 
