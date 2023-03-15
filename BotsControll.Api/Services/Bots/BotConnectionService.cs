@@ -49,5 +49,4 @@ public class BotConnectionService : IBotConnectionService
             .Select(connection => connection.SendAsync(message))
         );
     }
-
 }

@@ -50,7 +50,11 @@ public class Program
         app.UseWebSockets();
 
         app.MapControllers();
-        app.Map("/ws/bot", builder => builder.UseMiddleware<WebSocketMiddleware>());
+        app.Map("/ws/bot", builder =>
+        {
+            builder.UseMiddleware<>();
+            builder.UseMiddleware<WebSocketMiddleware>();
+        });
         app.MapHub<UserHub>("/ws/connect");
     }
 

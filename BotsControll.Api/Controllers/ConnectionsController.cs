@@ -1,4 +1,5 @@
-﻿using BotsControll.Api.Web.Connections;
+﻿using System.Linq;
+using BotsControll.Api.Web.Connections;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotsControll.Api.Controllers;
@@ -7,10 +8,12 @@ namespace BotsControll.Api.Controllers;
 public class ConnectionsController : ControllerBase
 {
     private readonly UserConnectionRepository _userConnections;
+    private readonly IBotConnectionRepository _botConnections;
 
-    public ConnectionsController(UserConnectionRepository userConnections)
+    public ConnectionsController(UserConnectionRepository userConnections, IBotConnectionRepository botConnections)
     {
         _userConnections = userConnections;
+        _botConnections = botConnections;
     }
 
     [HttpGet]
@@ -18,6 +21,17 @@ public class ConnectionsController : ControllerBase
     public IActionResult GetUsers()
     {
         return Ok(_userConnections.GetAll());
+    }
+
+    [HttpGet]
+    [ActionName("bots")]
+    public IActionResult GetBots()
+    {
+        return Ok(_botConnections.All.Select(kv => new
+        {
+            kv.Key,
+            kv.Value.Bot
+        }));
     }
 
 }

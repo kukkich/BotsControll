@@ -25,7 +25,7 @@ public class BotConnectionRepository : IBotConnectionRepository
     public string Add(BotConnection socket)
     {
         var id = CreateConnectionId();
-        _sockets.TryAdd(CreateConnectionId(), socket);
+        _sockets.TryAdd(id, socket);
 
         return id;
     }
