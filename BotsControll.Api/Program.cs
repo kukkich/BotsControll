@@ -56,6 +56,7 @@ public class Program
             builder.UseMiddleware<WebSocketMiddleware>();
         });
         app.MapHub<UserHub>("/ws/connect");
+        app.MapHub<BotsHub>("/ws/bots");
     }
 
     public static void Main(string[] args)

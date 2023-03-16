@@ -2,6 +2,7 @@
 using BotsControll.Api.Middlewares;
 using BotsControll.Api.Services.Bots;
 using BotsControll.Api.Web.Connections;
+using BotsControll.Core.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 

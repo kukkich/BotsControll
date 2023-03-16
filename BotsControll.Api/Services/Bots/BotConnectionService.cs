@@ -3,22 +3,50 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
+using BotsControll.Api.Hubs;
 using BotsControll.Api.Web.Connections;
+using BotsControll.Core.Web;
+using BotsControll.Core.Web.Dtos;
+using Microsoft.AspNetCore.SignalR;
 
 namespace BotsControll.Api.Services.Bots;
 
 public class BotConnectionService : IBotConnectionService
 {
     private readonly IBotConnectionRepository _connectionRepository;
+    private readonly IHubContext<BotsHub> _botsHubContext;
 
-    public BotConnectionService(IBotConnectionRepository connectionRepository)
+    public BotConnectionService(
+        IBotConnectionRepository connectionRepository,
+        IHubContext<BotsHub> botsHubContext
+        )
     {
         _connectionRepository = connectionRepository;
+        _botsHubContext = botsHubContext;
     }
 
-    public string AcceptConnection(BotConnection connection)
+    public async Task<string> AcceptConnectionAsync(BotConnection connection)
     {
-        return _connectionRepository.Add(connection);
+        var id = _connectionRepository.Add(connection);
+
+        await NotifyOnNewConnection(new BotConnectionDto(id, connection.Bot));
+        
+        return id;
+    }
+
+    private async Task NotifyOnNewConnection(BotConnectionDto newConnection)
+    {
+        await _botsHubContext.Clients.All.SendCoreAsync(
+            "OnNewConnection", 
+            new object?[] { newConnection }
+        );
+    }
+    private async Task NotifyOnNewDisconnectDisconnection(BotConnectionDto newConnection)
+    {
+        await _botsHubContext.Clients.All.SendCoreAsync(
+            "OnNewConnection",
+            new object?[] { newConnection }
+        );
     }
 
     public async Task DisconnectAsync(string id)

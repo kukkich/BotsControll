@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BotsControll.Api.Web.Connections;
+using BotsControll.Core.Web;
 
 namespace BotsControll.Api.Services.Bots;
 
 public interface IBotConnectionService
 {
-    public string AcceptConnection(BotConnection connection); 
+    public Task<string> AcceptConnectionAsync(BotConnection connection); 
     public Task DisconnectAsync(string id);
     public Task SendToAll(string message);
     public Task SendAllExcept(string message, IEnumerable<string> exceptedIds);

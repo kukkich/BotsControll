@@ -5,17 +5,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using BotsControll.Core.Identity;
 
-namespace BotsControll.Api.Web.Connections;
+namespace BotsControll.Core.Web;
 
 public class BotConnection
 {
     public WebSocket Connection { get; }
 
-    // todo: nullable must be removed in future versions
-    // now nullable just gag
-    public IBotIdentity? Bot { get; }
+    public IBotIdentity Bot { get; }
 
-    public BotConnection(WebSocket connection, IBotIdentity? bot=null)
+    public BotConnection(WebSocket connection, IBotIdentity bot)
     {
         Connection = connection;
         Bot = bot;

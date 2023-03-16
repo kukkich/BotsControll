@@ -8,6 +8,7 @@ using BotsControll.Api.Web.Connections;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Logging;
 using System.Text;
+using BotsControll.Core.Web;
 
 namespace BotsControll.Api.Web.Receiving;
 
@@ -33,7 +34,7 @@ public class BotWebSocketReceiver : IWebSocketReceiver
     public async Task StartReceiveAsync()
     {
         CreateBuffer();
-        _connectionId = _connectionService.AcceptConnection(_botConnection);
+        _connectionId = await _connectionService.AcceptConnectionAsync(_botConnection);
 
         while (_botConnection.Connection.State == WebSocketState.Open)
         {

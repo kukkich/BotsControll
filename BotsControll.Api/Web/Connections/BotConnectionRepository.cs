@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using BotsControll.Core.Web;
 
 namespace BotsControll.Api.Web.Connections;
 
