@@ -30,5 +30,5 @@ while (webSocket.State == WebSocketState.Open)
         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
         Console.WriteLine(result.CloseStatusDescription);
     }
-    else Console.WriteLine($"New message: {Encoding.ASCII.GetString(buf, 0, result.Count)}");
+    else Console.WriteLine($"New message: {Encoding.UTF8.GetString(buf, 0, result.Count)}");
 }
