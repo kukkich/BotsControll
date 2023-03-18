@@ -10,7 +10,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotsControll.Api", "BotsCon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotsControll.Core", "BotsControll.Core\BotsControll.Core.csproj", "{42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotsControll.Api.Tests", "BotsControll.Api.Tests\BotsControll.Api.Tests.csproj", "{42E8FC15-6957-415F-BBFB-83828C41D8C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotsControll.Api.Tests", "BotsControll.Api.Tests\BotsControll.Api.Tests.csproj", "{42E8FC15-6957-415F-BBFB-83828C41D8C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotsControll.ConsoleClient", "BotsControll.ConsoleClient\BotsControll.ConsoleClient.csproj", "{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,10 @@ Global
 		{42E8FC15-6957-415F-BBFB-83828C41D8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42E8FC15-6957-415F-BBFB-83828C41D8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42E8FC15-6957-415F-BBFB-83828C41D8C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
