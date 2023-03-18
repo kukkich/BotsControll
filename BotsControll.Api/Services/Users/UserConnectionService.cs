@@ -2,16 +2,21 @@
 using BotsControll.Core.Identity;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using BotsControll.Api.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace BotsControll.Api.Services.Users;
 
 public class UserConnectionService
 {
     private readonly UserConnectionRepository _userConnections;
+    private readonly IHubContext<UserHub> _userHub;
 
-    public UserConnectionService(UserConnectionRepository userConnections)
+    public UserConnectionService(UserConnectionRepository userConnections, IHubContext<UserHub> userHub)
     {
         _userConnections = userConnections;
+        _userHub = userHub;
     }
 
     public void Connect(UserIdentity user, string connectionId)
@@ -41,6 +46,20 @@ public class UserConnectionService
                 return;
 
             _userConnections.TryRemoveById(user.Id, out _);
+        }
+    }
+
+    public async Task Send(int userId, string message)
+    {
+        _userConnections.TryGetByUserId(userId, out var connectedUser);
+        if(connectedUser is null) return;
+
+        foreach (var connectionId in connectedUser.ConnectionIds)
+        {
+            await _userHub.Clients.Client(connectionId).SendCoreAsync(
+                "ReceiveMessage", 
+                new object?[] {message}
+                );
         }
     }
 }

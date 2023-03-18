@@ -27,7 +27,7 @@
             let connectionId = document.getElementById("connectionId").value
 
             hubConnection.invoke("SendToBot", connectionId, message)
-            
+
         });
 
         botHub.start()
@@ -40,6 +40,10 @@
             .then(function () {
                 document.getElementById("sendBtn").disabled = false;
             });
+
+        hubConnection.on("ReceiveMessage", (message) => {
+            console.log(message)
+        });
 
 
     </script>
