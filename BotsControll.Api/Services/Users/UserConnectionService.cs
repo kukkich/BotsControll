@@ -11,9 +11,9 @@ namespace BotsControll.Api.Services.Users;
 public class UserConnectionService
 {
     private readonly UserConnectionRepository _userConnections;
-    private readonly IHubContext<UserHub> _userHub;
+    private readonly IHubContext<ClientHub> _userHub;
 
-    public UserConnectionService(UserConnectionRepository userConnections, IHubContext<UserHub> userHub)
+    public UserConnectionService(UserConnectionRepository userConnections, IHubContext<ClientHub> userHub)
     {
         _userConnections = userConnections;
         _userHub = userHub;
@@ -57,7 +57,7 @@ public class UserConnectionService
         foreach (var connectionId in connectedUser.ConnectionIds)
         {
             await _userHub.Clients.Client(connectionId).SendCoreAsync(
-                "ReceiveMessage",
+                ClientHub.Actions.ReceiveMessage,
                 new object?[] { message }
                 );
         }

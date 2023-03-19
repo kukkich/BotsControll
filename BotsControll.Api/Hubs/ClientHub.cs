@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 namespace BotsControll.Api.Hubs;
 
 //[Authorize]
-public class UserHub : Hub
+public class ClientHub : Hub
 {
     private readonly UserConnectionService _userConnectionService;
     private readonly IBotConnectionService _botConnectionService;
-
-    public UserHub(UserConnectionService userConnectionService, IBotConnectionService botConnectionService)
+    public ClientHub(UserConnectionService userConnectionService, IBotConnectionService botConnectionService)
     {
         _userConnectionService = userConnectionService;
         _botConnectionService = botConnectionService;
@@ -48,5 +47,12 @@ public class UserHub : Hub
     public async Task SendToBot(string connectionId, string message)
     {
         await _botConnectionService.SendTo(connectionId, message);
+    }
+
+    public static class Actions
+    {
+        public const string ReceiveMessage = "ReceiveMessage";
+        public const string OnNewBotConnection = "OnNewConnection";
+        public const string OnBotDisconnection = "OnNewConnection";
     }
 }

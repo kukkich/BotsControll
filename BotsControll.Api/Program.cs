@@ -37,6 +37,7 @@ public class Program
     {
         if (app.Environment.IsDevelopment())
         {
+            //app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
@@ -55,7 +56,7 @@ public class Program
             builder.UseMiddleware<BotAuthenticationMiddleware>();
             builder.UseMiddleware<WebSocketMiddleware>();
         });
-        app.MapHub<UserHub>("/ws/connect");
+        app.MapHub<ClientHub>("/ws/connect");
         app.MapHub<BotsHub>("/ws/bots");
     }
 

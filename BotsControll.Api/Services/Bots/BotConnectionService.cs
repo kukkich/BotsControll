@@ -41,14 +41,14 @@ public class BotConnectionService : IBotConnectionService
     private async Task NotifyOnNewConnection(BotConnectionDto newConnection)
     {
         await _botsHubContext.Clients.All.SendCoreAsync(
-            "OnNewConnection",
+            ClientHub.Actions.OnNewBotConnection,
             new object?[] { newConnection }
         );
     }
     private async Task NotifyOnNewDisconnection(BotConnectionDto newConnection)
     {
         await _botsHubContext.Clients.All.SendCoreAsync(
-            "OnNewConnection",
+            ClientHub.Actions.OnBotDisconnection,
             new object?[] { newConnection }
         );
     }
