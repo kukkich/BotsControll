@@ -7,7 +7,7 @@ namespace BotsControll.Api.Web.Connections;
 
 public class UserConnectionRepository
 {
-    private readonly ConcurrentDictionary<int, ConnectedUser> _users = new ();
+    private readonly ConcurrentDictionary<int, ConnectedUser> _users = new();
 
     public ConnectedUser GetOrAddIfNotExist(int userId, Func<int, ConnectedUser> userFactory)
     {

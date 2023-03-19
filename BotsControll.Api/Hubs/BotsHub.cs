@@ -4,5 +4,5 @@ namespace BotsControll.Api.Hubs;
 
 public class BotsHub : Hub
 {
-    
+
 }

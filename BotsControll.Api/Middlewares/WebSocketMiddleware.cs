@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using BotsControll.Api.Web.Receiving;
+﻿using BotsControll.Api.Web.Receiving;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace BotsControll.Api.Middlewares;
 
@@ -8,13 +8,13 @@ public class WebSocketMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IWebSocketReceiverFactory _receiverFactory;
-    
+
     public WebSocketMiddleware(RequestDelegate next, IWebSocketReceiverFactory receiverFactory)
     {
         _next = next;
         _receiverFactory = receiverFactory;
     }
-    
+
     public async Task Invoke(HttpContext context)
     {
         // todo: should be invoke next

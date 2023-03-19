@@ -1,10 +1,10 @@
-﻿using BotsControll.Api.Web.Connections;
+﻿using BotsControll.Api.Hubs;
+using BotsControll.Api.Web.Connections;
 using BotsControll.Core.Identity;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using BotsControll.Api.Hubs;
-using Microsoft.AspNetCore.SignalR;
 
 namespace BotsControll.Api.Services.Users;
 
@@ -32,7 +32,7 @@ public class UserConnectionService
         }
     }
 
-    public void Disconnect(UserIdentity user, string connectionId, Exception? exception=null)
+    public void Disconnect(UserIdentity user, string connectionId, Exception? exception = null)
     {
         _userConnections.TryGetByUserId(user.Id, out var connectedUser);
 
@@ -52,13 +52,13 @@ public class UserConnectionService
     public async Task Send(int userId, string message)
     {
         _userConnections.TryGetByUserId(userId, out var connectedUser);
-        if(connectedUser is null) return;
+        if (connectedUser is null) return;
 
         foreach (var connectionId in connectedUser.ConnectionIds)
         {
             await _userHub.Clients.Client(connectionId).SendCoreAsync(
-                "ReceiveMessage", 
-                new object?[] {message}
+                "ReceiveMessage",
+                new object?[] { message }
                 );
         }
     }

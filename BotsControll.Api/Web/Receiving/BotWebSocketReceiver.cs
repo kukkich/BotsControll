@@ -1,14 +1,11 @@
-﻿using System.Net.Sockets;
+﻿using BotsControll.Api.Services.Bots;
+using BotsControll.Core.Web;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net.WebSockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using BotsControll.Api.Services.Bots;
-using BotsControll.Api.Web.Connections;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Logging;
-using System.Text;
-using BotsControll.Core.Web;
 
 namespace BotsControll.Api.Web.Receiving;
 

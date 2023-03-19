@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using BotsControll.Core.Identity;
+﻿using BotsControll.Core.Identity;
+using System.Collections.Generic;
 
 namespace BotsControll.Core.Web.Dtos;
 

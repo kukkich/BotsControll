@@ -8,7 +8,7 @@ public class UserIdentity
 {
     public int Id { get; }
     public string Name { get; }
-    
+
     public UserIdentity(int id, string name)
     {
         Id = id;
@@ -19,7 +19,7 @@ public class UserIdentity
     {
         var idClaim = claims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
         var nameClaim = claims.FindFirst(c => c.Type == ClaimTypes.Name);
-        
+
         EnsureNotNull(idClaim, nameClaim);
 
         var id = int.Parse(idClaim!.Value);

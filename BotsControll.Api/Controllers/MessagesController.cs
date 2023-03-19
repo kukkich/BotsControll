@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using BotsControll.Api.Services.Users;
+﻿using BotsControll.Api.Services.Users;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace BotsControll.Api.Controllers;
 

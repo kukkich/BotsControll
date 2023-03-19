@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using BotsControll.Api.Services.Bots;
+﻿using BotsControll.Api.Services.Bots;
 using BotsControll.Api.Services.Users;
 using BotsControll.Core.Identity;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 
 namespace BotsControll.Api.Hubs;
 
@@ -36,12 +36,12 @@ public class UserHub : Hub
 
         return base.OnDisconnectedAsync(exception);
     }
-    
+
     private void GetUserAndConnectionId(out UserIdentity userIdentity, out string connectionId)
     {
         var id = Random.Shared.Next(255);
         userIdentity = new UserIdentity(id, $"user with id {id} name");
-            //(UserIdentity)Context.User!;
+        //(UserIdentity)Context.User!;
         connectionId = Context.ConnectionId;
     }
 

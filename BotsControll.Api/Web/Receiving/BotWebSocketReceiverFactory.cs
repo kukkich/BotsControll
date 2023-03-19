@@ -1,10 +1,9 @@
-﻿using System.Net.WebSockets;
-using BotsControll.Api.Middlewares;
+﻿using BotsControll.Api.Middlewares;
 using BotsControll.Api.Services.Bots;
-using BotsControll.Api.Web.Connections;
 using BotsControll.Core.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Net.WebSockets;
 
 namespace BotsControll.Api.Web.Receiving;
 
@@ -14,7 +13,7 @@ public class BotWebSocketReceiverFactory : IWebSocketReceiverFactory
     private readonly ILogger<BotWebSocketReceiver> _botLogger;
 
     public BotWebSocketReceiverFactory(
-        IBotConnectionService botConnectionService, 
+        IBotConnectionService botConnectionService,
         ILogger<BotWebSocketReceiver> botLogger
         )
     {

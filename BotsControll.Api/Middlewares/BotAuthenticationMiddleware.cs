@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
+using System.Linq;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace BotsControll.Api.Middlewares;
@@ -26,13 +26,13 @@ public class BotAuthenticationMiddleware
 
         context.User = new ClaimsPrincipal(
             new ClaimsIdentity(
-                new []
+                new[]
                 {
                     new Claim(ClaimTypes.Name, botName)
                 }
             )
         );
-        
+
         await _next(context);
     }
 }

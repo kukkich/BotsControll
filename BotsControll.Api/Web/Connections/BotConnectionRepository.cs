@@ -1,15 +1,15 @@
-﻿using System;
+﻿using BotsControll.Core.Web;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using BotsControll.Core.Web;
 
 namespace BotsControll.Api.Web.Connections;
 
 public class BotConnectionRepository : IBotConnectionRepository
 {
     private readonly ConcurrentDictionary<string, BotConnection> _sockets = new();
-    
+
     public IEnumerable<KeyValuePair<string, BotConnection>> All => _sockets.AsEnumerable();
     public IEnumerable<BotConnection> AllConnection => _sockets.AsEnumerable().Select(x => x.Value);
 
@@ -42,7 +42,7 @@ public class BotConnectionRepository : IBotConnectionRepository
 
         return botConnection;
     }
-    
+
     private string CreateConnectionId()
     {
         return Guid.NewGuid().ToString();

@@ -23,7 +23,7 @@ public class UserConnectionServiceTests
         _connectionService.Connect(user, "connection_id");
 
         _connectionService.Disconnect(user, "connection_id", null);
-        
+
         Assert.That(_connectionRepository.GetAll().Any(), Is.EqualTo(false));
     }
 
@@ -45,7 +45,7 @@ public class UserConnectionServiceTests
             Assert.That(key, Is.EqualTo(user.Id));
             Assert.That(connectedUser.User.Id, Is.EqualTo(1));
             Assert.That(connectedUser.User.Name, Is.EqualTo("123"));
-            Assert.That(connectedUser.ConnectionIds, Is.EquivalentTo(new [] { "connection_id" }));
+            Assert.That(connectedUser.ConnectionIds, Is.EquivalentTo(new[] { "connection_id" }));
         });
     }
 
@@ -83,7 +83,7 @@ public class UserConnectionServiceTests
 
         _connectionService.Connect(user, "connection_id_one");
         _connectionService.Connect(user, "connection_id_two");
-        
+
         _connectionService.Disconnect(user, "connection_id_one");
         _connectionService.Disconnect(user, "connection_id_two");
 
@@ -140,9 +140,9 @@ public class UserConnectionServiceTests
         var user2ConnectionsActual = connectionsActual.First(x => x.Value.User == user2)
             .Value.ConnectionIds;
 
-        var usersExpected = new [] {user1, user2};
-        var user1ConnectionsExpected = new [] { "1_1", "1_3" };
-        var user2ConnectionsExpected = new [] { "2_2", "2_3", "2_5" };
+        var usersExpected = new[] { user1, user2 };
+        var user1ConnectionsExpected = new[] { "1_1", "1_3" };
+        var user2ConnectionsExpected = new[] { "2_2", "2_3", "2_5" };
 
         Assert.Multiple(() =>
         {
