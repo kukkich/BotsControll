@@ -1,7 +1,7 @@
 using BotsControll.Api.Hubs;
 using BotsControll.Api.Middlewares;
-using BotsControll.Api.Services.Bots;
-using BotsControll.Api.Services.Users;
+using BotsControll.Api.Services.Communication;
+using BotsControll.Api.Services.Connections;
 using BotsControll.Api.Web.Connections;
 using BotsControll.Api.Web.Receiving;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +12,6 @@ namespace BotsControll.Api;
 
 public class Program
 {
-
     public static void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
@@ -25,12 +24,38 @@ public class Program
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+        services.AddTransient<IBotMessageService, BotMessageService>();
+        services.AddTransient<IUserMessageService, UserMessageService>();
+
         services.AddSingleton<IBotConnectionRepository, BotConnectionRepository>();
+        services.AddSingleton<UserConnectionRepository>();
+
         services.AddTransient<IBotConnectionService, BotConnectionService>();
+        services.AddTransient<UserConnectionService>();
+
         services.AddTransient<IWebSocketReceiverFactory, BotWebSocketReceiverFactory>();
 
-        services.AddSingleton<UserConnectionRepository>();
-        services.AddTransient<UserConnectionService>();
+        services.AddCors(options =>
+        {
+            options.AddPolicy(name: "VueS",
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:7126")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+
+                });
+            options.AddPolicy(name: "Vue",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:5042")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+
+                });
+        });
     }
 
     public static void Configure(WebApplication app)
@@ -57,7 +82,6 @@ public class Program
             builder.UseMiddleware<WebSocketMiddleware>();
         });
         app.MapHub<ClientHub>("/ws/connect");
-        app.MapHub<BotsHub>("/ws/bots");
     }
 
     public static void Main(string[] args)

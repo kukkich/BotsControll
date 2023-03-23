@@ -14,6 +14,7 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Middlewares\" />
+    <Folder Include="Services\Bots\" />
     <Folder Include="Services\Users\" />
     <Folder Include="Web\Receiving\" />
   </ItemGroup>

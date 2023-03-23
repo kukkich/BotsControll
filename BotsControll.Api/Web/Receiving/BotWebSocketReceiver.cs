@@ -1,4 +1,4 @@
-﻿using BotsControll.Api.Services.Bots;
+﻿using BotsControll.Api.Services.Connections;
 using BotsControll.Core.Web;
 using Microsoft.Extensions.Logging;
 using System;
@@ -6,15 +6,18 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BotsControll.Api.Services.Communication;
 
 namespace BotsControll.Api.Web.Receiving;
 
 public class BotWebSocketReceiver : IWebSocketReceiver
 {
+    private readonly IBotConnectionService _connectionService;
+    private readonly IBotMessageService _botMessageService;
+    private readonly ILogger<BotWebSocketReceiver> _logger;
+
     private readonly BotConnection _botConnection;
     private string _connectionId = null!;
-    private readonly IBotConnectionService _connectionService;
-    private readonly ILogger<BotWebSocketReceiver> _logger;
     private byte[] _buffer = new byte[1024 * 4];
     private CancellationTokenSource? _receivingCancellationSource;
     private bool _isDisconnected = false;
@@ -23,11 +26,13 @@ public class BotWebSocketReceiver : IWebSocketReceiver
     public BotWebSocketReceiver(
         BotConnection botConnection,
         IBotConnectionService connectionService,
+        IBotMessageService botMessageService, 
         ILogger<BotWebSocketReceiver> logger
     )
     {
         _botConnection = botConnection;
         _connectionService = connectionService;
+        _botMessageService = botMessageService;
         _logger = logger;
     }
 
@@ -41,7 +46,7 @@ public class BotWebSocketReceiver : IWebSocketReceiver
         _receivingCancellationSource = cts;
         var cancellationToken = cts.Token;
 
-        Task connectionStatusСheckingTask = null;
+        Task connectionStatusСheckingTask = default;
 
         try
         {
@@ -77,7 +82,7 @@ public class BotWebSocketReceiver : IWebSocketReceiver
         {
             case WebSocketMessageType.Text:
                 var stringMessage = Encoding.UTF8.GetString(_buffer, 0, result.Count);
-                await _connectionService.SendToAll(stringMessage);
+                await _botMessageService.SendToAll(stringMessage);
                 return;
             case WebSocketMessageType.Close:
                 await Disconnect("closed");

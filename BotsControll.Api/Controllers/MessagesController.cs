@@ -1,23 +1,24 @@
-﻿using BotsControll.Api.Services.Users;
+﻿using BotsControll.Api.Services.Connections;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using BotsControll.Api.Services.Communication;
 
 namespace BotsControll.Api.Controllers;
 
 [Route("api/[controller]/[action]")]
 public class MessagesController : ControllerBase
 {
-    private readonly UserConnectionService _userService;
-
-    public MessagesController(UserConnectionService userService)
+    private readonly IUserMessageService _userMessageService;
+    
+    public MessagesController(IUserMessageService userMessageService)
     {
-        _userService = userService;
+        _userMessageService = userMessageService;
     }
 
     [HttpPost]
     public async Task<IActionResult> SendToUser(int userId, string message)
     {
-        await _userService.Send(userId, message);
+        await _userMessageService.Send(userId, message);
         return Ok();
     }
 }

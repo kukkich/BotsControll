@@ -1,4 +1,4 @@
-﻿using BotsControll.Api.Services.Users;
+﻿using BotsControll.Api.Services.Connections;
 using BotsControll.Api.Web.Connections;
 using BotsControll.Core.Identity;
 

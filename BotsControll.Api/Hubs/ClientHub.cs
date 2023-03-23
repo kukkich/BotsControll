@@ -1,9 +1,9 @@
-﻿using BotsControll.Api.Services.Bots;
-using BotsControll.Api.Services.Users;
+﻿using BotsControll.Api.Services.Connections;
 using BotsControll.Core.Identity;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading.Tasks;
+using BotsControll.Api.Services.Communication;
 
 namespace BotsControll.Api.Hubs;
 
@@ -11,11 +11,14 @@ namespace BotsControll.Api.Hubs;
 public class ClientHub : Hub
 {
     private readonly UserConnectionService _userConnectionService;
-    private readonly IBotConnectionService _botConnectionService;
-    public ClientHub(UserConnectionService userConnectionService, IBotConnectionService botConnectionService)
+    private readonly IBotMessageService _botMessageService;
+
+    public ClientHub(
+        UserConnectionService userConnectionService, 
+        IBotMessageService botMessageService)
     {
         _userConnectionService = userConnectionService;
-        _botConnectionService = botConnectionService;
+        _botMessageService = botMessageService;
     }
 
     public override Task OnConnectedAsync()
@@ -36,17 +39,17 @@ public class ClientHub : Hub
         return base.OnDisconnectedAsync(exception);
     }
 
+    public async Task SendToBot(string connectionId, string message)
+    {
+        await _botMessageService.SendTo(connectionId, message);
+    }
+
     private void GetUserAndConnectionId(out UserIdentity userIdentity, out string connectionId)
     {
         var id = Random.Shared.Next(255);
         userIdentity = new UserIdentity(id, $"user with id {id} name");
         //(UserIdentity)Context.User!;
         connectionId = Context.ConnectionId;
-    }
-
-    public async Task SendToBot(string connectionId, string message)
-    {
-        await _botConnectionService.SendTo(connectionId, message);
     }
 
     public static class Actions
