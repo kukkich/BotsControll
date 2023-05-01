@@ -4,6 +4,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.32916.344
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotsControll.Api", "BotsControll.Api\BotsControll.Api.csproj", "{8DD8ED0E-58D6-4522-8883-0E2D1CBEF66A}"
+<<<<<<< Updated upstream
+=======
+	ProjectSection(ProjectDependencies) = postProject
+		{42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69} = {42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotsControll.Core", "BotsControll.Core\BotsControll.Core.csproj", "{42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotsControll.Api.Tests", "BotsControll.Api.Tests\BotsControll.Api.Tests.csproj", "{42E8FC15-6957-415F-BBFB-83828C41D8C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotsControll.ConsoleClient", "BotsControll.ConsoleClient\BotsControll.ConsoleClient.csproj", "{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itmp.Tests", "Itmp.Tests\Itmp.Tests.csproj", "{A59824A9-53EC-4B85-86FD-A7BAA152A1F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SandBox", "SandBox\SandBox.csproj", "{E525A7DB-B13B-4A68-ACB1-A7B7F03869DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itmp", "Itmp\Itmp.csproj", "{753A6EA1-272B-413A-A16A-F17D67190BC7}"
+>>>>>>> Stashed changes
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +33,33 @@ Global
 		{8DD8ED0E-58D6-4522-8883-0E2D1CBEF66A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DD8ED0E-58D6-4522-8883-0E2D1CBEF66A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DD8ED0E-58D6-4522-8883-0E2D1CBEF66A}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< Updated upstream
+=======
+		{42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42E0C613-0CFE-4A6B-9F66-FFDA97B5BD69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42E8FC15-6957-415F-BBFB-83828C41D8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42E8FC15-6957-415F-BBFB-83828C41D8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42E8FC15-6957-415F-BBFB-83828C41D8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42E8FC15-6957-415F-BBFB-83828C41D8C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A941FAF3-08D1-43BF-AB8E-75FA3DBFD544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59824A9-53EC-4B85-86FD-A7BAA152A1F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59824A9-53EC-4B85-86FD-A7BAA152A1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59824A9-53EC-4B85-86FD-A7BAA152A1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59824A9-53EC-4B85-86FD-A7BAA152A1F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E525A7DB-B13B-4A68-ACB1-A7B7F03869DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E525A7DB-B13B-4A68-ACB1-A7B7F03869DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E525A7DB-B13B-4A68-ACB1-A7B7F03869DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E525A7DB-B13B-4A68-ACB1-A7B7F03869DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{753A6EA1-272B-413A-A16A-F17D67190BC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753A6EA1-272B-413A-A16A-F17D67190BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753A6EA1-272B-413A-A16A-F17D67190BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753A6EA1-272B-413A-A16A-F17D67190BC7}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> Stashed changes
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

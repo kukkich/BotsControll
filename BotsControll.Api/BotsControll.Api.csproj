@@ -7,12 +7,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Bots\**" />
+    <Content Remove="Services\Bots\**" />
+    <EmbeddedResource Remove="Services\Bots\**" />
+    <None Remove="Services\Bots\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0-rc.1.22427.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< Updated upstream
     <Folder Include="Controllers\" />
+=======
+    <Folder Include="Controllers\ModelsControllers\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Web\Receiving\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Services\Tokens\" />
+    <Folder Include="Services\Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BotsControll.Core\BotsControll.Core.csproj" />
+>>>>>>> Stashed changes
   </ItemGroup>
 
 </Project>
